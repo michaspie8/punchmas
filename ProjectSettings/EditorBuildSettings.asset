@@ -14,6 +14,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FightNorthForest.unity
     guid: 50e2a398d3f20844d805f548ba325295
+  - enabled: 1
+    path: Assets/Scenes/FightHome.unity
+    guid: c6e6dd075de75004d9e262c4ae66bf8b
+  - enabled: 1
+    path: Assets/Scenes/FightForum Comradum.unity
+    guid: 9755fd4df0ddf7643b08e62c3a39939c
+  - enabled: 1
+    path: Assets/Scenes/FightEast Seaside.unity
+    guid: 7fea8be7a9520f4498e47874cf2991aa
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f08ce73eda9c6824ebfb9eecc80553e8,
       type: 2}

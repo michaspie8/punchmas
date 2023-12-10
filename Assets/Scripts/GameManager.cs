@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
         //Stop all coroutines to prevent unwanted behaviour like running coroutines from previous scene
         StopAllCoroutines();
         UpdateAllObjects();
-
+        AudioManager.instance.musicSource.Stop();
         switch (scene.name)
         {
             case "MainMenu":
@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
                             UIManager.instance.canvasManager.itemHolders[2].GetComponent<Image>().sprite = UIManager.instance.canvasManager.itemSprites[2];
                             UIManager.instance.canvasManager.itemHolders[2].SetActive(true);
                             break;
-                        case "Lumberjack":
+                        case "Jack Lumber (He/His)":
                             UIManager.instance.canvasManager.itemHolders[3].GetComponent<Image>().sprite = UIManager.instance.canvasManager.itemSprites[3];
 
                             UIManager.instance.canvasManager.itemHolders[3].SetActive(true);

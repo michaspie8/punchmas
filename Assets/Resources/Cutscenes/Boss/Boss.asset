@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73e8edb4bcb5a6459adc991e654adc2, type: 3}
+  m_Name: Boss
+  m_EditorClassIdentifier: 
+  pathToSprites:
+  - Cutscenes/Start/Sprites/strat
+  textForFrame:
+  - The boy, armed with these reclaimed artifacts, courageously approached Santa's
+    palace.
+  - Santa welcomed him, but as the boy asked the crucial question about his place
+    on the nice list, a shocking revelation unfolded.
+  - The artifacts weren't stolen. And boy's name will not appear on the nice's list.
+  - Santa used the artifacts to transform into his final, most powerfull form. And
+    only person that can stop him now is him.
+  - '"It''s time to settle accounts, you bastard.\nIT IS PUNCHMAS TIME"\n- said the
+    boy...'
+  timeBetweenFrames: 0.5
+  timeBetweenLetters: 0.08
+  timeBetweenSpriteAndText: 0.2
+  typingAudioInfo: {fileID: 11400000, guid: 4810d1683a91e314f8201197427ba04d, type: 2}
+  musicName: boss _appear
+  musicDelay: 10

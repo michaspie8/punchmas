@@ -52,3 +52,5 @@ MonoBehaviour:
   timeBetweenLetters: 0.2
   timeBetweenSpriteAndText: 0.8
   typingAudioInfo: {fileID: 11400000, guid: 4810d1683a91e314f8201197427ba04d, type: 2}
+  musicName: start_cutscene
+  musicDelay: 10
