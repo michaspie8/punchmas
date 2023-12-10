@@ -124,29 +124,45 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator TypeWriter(string text, float waitTime, GameObject tmp)
     {
+        
         for (var i = 0; i < text.Length; i++)
         {
-            tmp.GetComponent<TextMeshProUGUI>().text = text.Substring(0, i);
+            try
+            {
+                tmp.GetComponent<TextMeshProUGUI>().text = text.Substring(0, i);
 
+            }
+            catch
+            {
+                print("Error in TypeWriter");
+            }
             yield return new WaitForSecondsRealtime(waitTime);
         }
         typeWriterEnd?.Invoke(tmp);
     }
+
     public IEnumerator TypeWriter(string text, float waitTime, GameObject tmp, TypingAudioInfoSO so, bool makePredictable)
     {
-        for (var i = 1; i < text.Length+1; i++)
+        for (var i = 1; i < text.Length + 1; i++)
         {
-            if (so.typingSoundClips.Length > 0)
+            try
             {
-                var clip = so.typingSoundClips[UnityEngine.Random.Range(0, so.typingSoundClips.Length)];
-                if (!string.IsNullOrWhiteSpace(text.Substring(0, i).LastOrDefault().ToString()))
-                    AudioManager.instance.PlayTypingSound(i, text.Substring(0, i).LastOrDefault(), so, makePredictable);
+                if (so.typingSoundClips.Length > 0)
+                {
+                    var clip = so.typingSoundClips[UnityEngine.Random.Range(0, so.typingSoundClips.Length)];
+                    if (!string.IsNullOrWhiteSpace(text.Substring(0, i).LastOrDefault().ToString()))
+                        AudioManager.instance.PlayTypingSound(i, text.Substring(0, i).LastOrDefault(), so, makePredictable);
+                }
+                tmp.GetComponent<TextMeshProUGUI>().text = text.Substring(0, i);
             }
-            tmp.GetComponent<TextMeshProUGUI>().text = text.Substring(0, i);
-
+            catch
+            {
+                print("Error in TypeWriter");
+            }
             yield return new WaitForSecondsRealtime(waitTime);
         }
         typeWriterEnd?.Invoke(tmp);
+
     }
 
     //If enemy is null, player lost, otherwise player won and enemy is the enemy that lost
@@ -179,8 +195,8 @@ public class UIManager : MonoBehaviour
         var end = false;
         typeWriterEnd += (GameObject obj) => { end = true; };
 
-        StartCoroutine(TypeWriter("KNOCKOUT!!!", 0.07f,obj.gameObject));
-        yield return new WaitUntil(()=>end);
+        StartCoroutine(TypeWriter("KNOCKOUT!!!", 0.07f, obj.gameObject));
+        yield return new WaitUntil(() => end);
         AudioManager.instance.musicSource.Stop();
         yield return new WaitForSecondsRealtime(0.5f);
 

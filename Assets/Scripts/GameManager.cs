@@ -146,10 +146,17 @@ public class GameManager : MonoBehaviour
             int i = 0;
             while (true)
             {
-                UIManager.instance.canvasManager.loadingImage.GetComponent<Image>().sprite = UIManager.instance.loadingImageAnimation[i];
-                i++;
-                if (i > UIManager.instance.loadingImageAnimation.Count)
+                try
+                {
+                    UIManager.instance.canvasManager.loadingImage.GetComponent<Image>().sprite = UIManager.instance.loadingImageAnimation[i];
+                    i++;
+                    if (i > UIManager.instance.loadingImageAnimation.Count)
+                        i = 0;
+                }
+                catch
+                {
                     i = 0;
+                }
                 yield return new WaitForSecondsRealtime(waitTime);
             }
         }
@@ -210,7 +217,7 @@ public class GameManager : MonoBehaviour
                             UIManager.instance.canvasManager.itemHolders[1].GetComponent<Image>().sprite = UIManager.instance.canvasManager.itemSprites[1];
                             UIManager.instance.canvasManager.itemHolders[1].SetActive(true);
                             break;
-                        case "Ice Snatcher" :
+                        case "Ice Snatcher":
                             UIManager.instance.canvasManager.itemHolders[2].GetComponent<Image>().sprite = UIManager.instance.canvasManager.itemSprites[2];
                             UIManager.instance.canvasManager.itemHolders[2].SetActive(true);
                             break;
@@ -232,6 +239,20 @@ public class GameManager : MonoBehaviour
                 EnablePlayerControls();
                 EnableUIControls();
                 ResumeGame();
+                break;
+            case "boss":
+                currentScene = "boss";
+
+                PauseGame();
+                DisablePlayerControls();
+                DisableUIControls();
+                UIManager.instance.PlayCutscene(UIManager.instance.cutsceneDictionary["boss"], () =>
+                {
+                    ResumeGame();
+                    EnablePlayerControls();
+                    DisableUIControls();
+
+                }, false);
                 break;
             default:
                 break;
