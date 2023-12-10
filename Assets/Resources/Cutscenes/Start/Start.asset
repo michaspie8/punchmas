@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73e8edb4bcb5a6459adc991e654adc2, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  pathToSprites:
+  - Cutscenes/Start/Sprites/0
+  - Cutscenes/Start/Sprites/strat
+  textForFrame:
+  - This story I'm about to tell is a legend. And as every child knows, there is
+    a grain of truth in every legend.
+  - Once upon a time
+  - In a distant icy land
+  - There lived a boy filled with excitement for the upcoming holidays.
+  - Unable to contain his joy, he penned a heartfelt letter to Santa Claus, expressing
+    his wishes for a special gift.
+  - Little did he know, a magical encounter awaited him.
+  - As Christmas approached, Santa Claus appeared in front of the boy with a twinkle
+    in his eye.
+  - With a gentle smile, Santa revealed a twist in the tale.
+  - The boy's name wasn't on the nice list.
+  - However, Santa promised to make an exception if the boy could retrieve five precious
+    items stolen from him.
+  - Those who had stolen those five items were
+  - Frosty Fingers
+  - He stole Santa's icy lever, the key to activating a section of the factory with
+    printers crucial for the federal system. Those printers were making more money,
+    so that poor children can also get gifts
+  - Whispering Reiver
+  - "This sly thief pilfered a list of words used to silence someone speaking things
+    they shouldn't\u2014an essential document in Santa's workshop."
+  - Ice Snatcher
+  - An elusive figure who made off with Santa's ancient crosier, hidden for centuries
+    in the deepest recesses of the workshop.
+  - Lumberjack
+  - "That muscular man had stolen keys to SawTractor\u2122, which Santa's helpers
+    used to cut down excess trees in the national forests"
+  - Scarlet Bandit
+  - He stole Santa's secret red emblem, declared by Santa as his most crucial possession,
+    despite it was on an old signboard at the factory door.
+  - Santa has disappeared, and now the boy has to recover the artifacts
+  timeBetweenFrames: 1.2
+  timeBetweenLetters: 0.2
+  timeBetweenSpriteAndText: 0.8
+  typingAudioInfo: {fileID: 11400000, guid: 4810d1683a91e314f8201197427ba04d, type: 2}

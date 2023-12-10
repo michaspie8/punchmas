@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  m_configObjects: {}
+    path: Assets/Scenes/MainMenu.unity
+    guid: e3d1542bbf7265040b1dbcc1d6f78eef
+  - enabled: 1
+    path: Assets/Scenes/world-map.unity
+    guid: 71a1fd3f0c3fb8840ad44f655680826b
+  - enabled: 1
+    path: Assets/Scenes/FightNorthForest.unity
+    guid: 50e2a398d3f20844d805f548ba325295
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: f08ce73eda9c6824ebfb9eecc80553e8,
+      type: 2}
+  m_UseUCBPForAssetBundles: 0
