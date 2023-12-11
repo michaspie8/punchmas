@@ -85,7 +85,7 @@ public class CanvasUIManager : MonoBehaviour
     }
     public void ExitToMainMenu()
     {
-        GameManager.instance.LoadScene("MainMenu");
+        GameManager.instance.LoadScene("MainMenu2");
     }
     // Update is called once per frame
     void Update()

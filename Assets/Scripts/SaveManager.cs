@@ -65,7 +65,7 @@ public class SaveManager : MonoBehaviour
     {
         switch (GameManager.instance.currentScene)
         {
-            case "MainMenu":
+            case string s when s.Contains("MainMenu"):
                 saveData.destinationPointName = "Home";
                 break;
             case "world-map":
@@ -78,7 +78,16 @@ public class SaveManager : MonoBehaviour
         try
         {
             var data = JsonUtility.ToJson(saveData);
-            WebGLFileSaver.SaveFile(data, "save.txt");
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                if (!WebGLFileSaver.IsSavingSupported())
+                {
+                    Debug.LogWarning("Saving is not supported on this device.");
+                    return;
+                }
+                WebGLFileSaver.SaveFile("save.txt", "save.txt");
+                return;
+            }
         }
         catch (Exception e)
         {
@@ -89,7 +98,16 @@ public class SaveManager : MonoBehaviour
 
     public void LoadGame()
     {
-        var saveData = saveInput.GetComponent<TextMeshProUGUI>().text;
-        instance.LoadSave(saveData);
+        var temp = saveData;
+        try
+        {
+            var saveData = saveInput.GetComponent<TextMeshProUGUI>().text;
+            instance.LoadSave(saveData);
+        }
+        catch
+        {
+            Debug.LogError("Error loading save data");
+            saveData = temp;
+        }
     }
 }

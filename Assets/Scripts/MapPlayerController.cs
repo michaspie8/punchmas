@@ -15,10 +15,10 @@ public class MapPlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        GameManager.instance.controls.Player.Movement.performed += ctx => move = ctx.ReadValue<Vector2>();
-        GameManager.instance.controls.Player.Movement.canceled += ctx => move = Vector2.zero;
+        GameManager.instance.controls.Map.Movement.performed += ctx => move = ctx.ReadValue<Vector2>();
+        GameManager.instance.controls.Map.Movement.canceled += ctx => move = Vector2.zero;
 
-        GameManager.instance.controls.Player.Menu.performed += ctx => GameManager.instance.ToggleMenu();
+        GameManager.instance.controls.Map.Menu.performed += ctx => GameManager.instance.ToggleMenu();
     }
 
     // Update is called once per frame

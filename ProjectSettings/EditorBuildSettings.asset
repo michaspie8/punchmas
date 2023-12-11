@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FightEast Seaside.unity
     guid: 7fea8be7a9520f4498e47874cf2991aa
+  - enabled: 1
+    path: Assets/Scenes/MainMenu2.unity
+    guid: 6a76d4d531c05504db87aa2db4263579
+  - enabled: 1
+    path: Assets/Scenes/FightBig City.unity
+    guid: b38416b23139e6b4aa7c5c5448cadc43
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f08ce73eda9c6824ebfb9eecc80553e8,
       type: 2}

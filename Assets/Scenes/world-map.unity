@@ -566,6 +566,7 @@ MonoBehaviour:
   destinationName: Forum Comradum
   info: {fileID: 1585604533}
   bossName: Whispering Reiver
+  altBossName: 
 --- !u!1 &624964586
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +737,7 @@ MonoBehaviour:
   destinationName: Big City
   info: {fileID: 1585604533}
   bossName: Scarlet Bandit
+  altBossName: 
 --- !u!1 &831150996
 GameObject:
   m_ObjectHideFlags: 3
@@ -1184,7 +1186,15 @@ PrefabInstance:
         type: 3}
       insertIndex: 1
       addedObject: {fileID: 1585604534}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5845679394027806162, guid: e1978ea482eed1a4c8ce8fcc67681747,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 840340423}
+    - targetCorrespondingSourceObject: {fileID: 5845679394027806162, guid: e1978ea482eed1a4c8ce8fcc67681747,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 840340422}
   m_SourcePrefab: {fileID: 100100000, guid: e1978ea482eed1a4c8ce8fcc67681747, type: 3}
 --- !u!224 &840340420 stripped
 RectTransform:
@@ -1192,6 +1202,47 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 840340419}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &840340421 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5845679394027806162, guid: e1978ea482eed1a4c8ce8fcc67681747,
+    type: 3}
+  m_PrefabInstance: {fileID: 840340419}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &840340422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840340421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.13333334, g: 0.1254902, b: 0.20392157, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &840340423
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840340421}
+  m_CullTransparentMesh: 1
 --- !u!1 &862808023
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,6 +1848,7 @@ MonoBehaviour:
   destinationName: Santa's Palace
   info: {fileID: 1585604533}
   bossName: Santa Claus
+  altBossName: 
 --- !u!1 &1437757771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,6 +1903,7 @@ MonoBehaviour:
   destinationName: East Seaside
   info: {fileID: 1585604533}
   bossName: Ice Snatcher
+  altBossName: 
 --- !u!1 &1539591114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,6 +1958,7 @@ MonoBehaviour:
   destinationName: Home
   info: {fileID: 1585604533}
   bossName: Frosty Fingers
+  altBossName: 
 --- !u!1 &1585604533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,6 +2153,7 @@ MonoBehaviour:
   destinationName: NorthForest
   info: {fileID: 1585604533}
   bossName: LumberJack
+  altBossName: Jack Lumber (He/His)
 --- !u!4 &1706989025
 Transform:
   m_ObjectHideFlags: 0

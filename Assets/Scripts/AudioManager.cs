@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class AudioManager : MonoBehaviour
 {
     [Header("Typing")]
-    private AudioSource typingAudioSource;
+   public  AudioSource typingAudioSource;
 
 
     [Header("Music")]

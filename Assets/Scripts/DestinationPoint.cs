@@ -10,6 +10,7 @@ public class DestinationPoint : Interactable
     public string destinationName;
     public GameObject info;
     public string bossName;
+    public string altBossName;
     public override void Interact()
     {
 
@@ -28,7 +29,7 @@ public class DestinationPoint : Interactable
                 if (SaveManager.saveData.bossPoints.ContainsKey("Frosty Fingers") &&
                     SaveManager.saveData.bossPoints.ContainsKey("Whispering Reiver") &&
                     SaveManager.saveData.bossPoints.ContainsKey("Ice Snatcher") &&
-                    SaveManager.saveData.bossPoints.ContainsKey("Lumberjack") &&
+                    (SaveManager.saveData.bossPoints.ContainsKey("Lumberjack") || SaveManager.saveData.bossPoints.ContainsKey("Jack Lumber (He/His)")) &&
                     SaveManager.saveData.bossPoints.ContainsKey("Scarlet Bandit"))
                 {
                     GameManager.instance.LoadScene("Boss");
@@ -73,8 +74,14 @@ public class DestinationPoint : Interactable
 
     public void LoadInfo()
     {
+        var bossName = this.bossName;
+        if(SaveManager.saveData.bossPoints.ContainsKey(bossName) == false)
+        {
+            bossName = altBossName;
+        }
         foreach (var obj in info.GetComponentsInChildren<TextMeshProUGUI>())
         {
+            
             if (obj.gameObject.name == "BossName")
             {
                 obj.text = bossName;

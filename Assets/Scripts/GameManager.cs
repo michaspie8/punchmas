@@ -171,6 +171,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(loadingImageCo(0.1f));
         yield return new WaitForSecondsRealtime(0.2f);
         AsyncOperation op = SceneManager.LoadSceneAsync(name);
+        AudioManager.instance.StopAllCoroutines();
+        AudioManager.instance.musicSource.Stop();
+        AudioManager.instance.typingAudioSource.Stop();
         while (!op.isDone)
         {
             yield return null;
@@ -178,18 +181,28 @@ public class GameManager : MonoBehaviour
         StopCoroutine(loadingImageCo(0.1f));
         UIManager.instance.StopAllCoroutines();
         UIManager.instance.canvasManager.loadingImage.SetActive(false);
+        StopAllCoroutines();
         yield break;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        DisableMapControls();
         //Stop all coroutines to prevent unwanted behaviour like running coroutines from previous scene
         StopAllCoroutines();
+        UIManager.instance.StopAllCoroutines();
+        AudioManager.instance.StopAllCoroutines();
+
         UpdateAllObjects();
         AudioManager.instance.musicSource.Stop();
         switch (scene.name)
         {
             case "MainMenu":
+                currentScene = "MainMenu";
+                UIManager.instance.blackPanelFader.FadeOut();
+                AudioManager.instance.PlayMusic("MainMenu", true, 2f);
+                break;
+            case "MainMenu2":
                 currentScene = "MainMenu";
                 UIManager.instance.blackPanelFader.FadeOut();
                 AudioManager.instance.PlayMusic("MainMenu", true, 2f);
@@ -202,7 +215,8 @@ public class GameManager : MonoBehaviour
 
                 break;
             case "world-map":
-
+                disableAllControls();
+                
                 currentScene = "world-map";
 
                 foreach (var item in SaveManager.saveData.bossPoints)
@@ -236,7 +250,7 @@ public class GameManager : MonoBehaviour
                 UIManager.instance.blackPanelFader.FadeOut();
                 var p = FindFirstObjectByType<MapPlayerController>();
                 p.transform.position = FindObjectsByType<DestinationPoint>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList().Find(ctx => ctx.destinationName == SaveManager.saveData.destinationPointName).transform.position;
-                EnablePlayerControls();
+                EnableMapControls();
                 EnableUIControls();
                 ResumeGame();
                 break;
@@ -312,6 +326,21 @@ public class GameManager : MonoBehaviour
     public void EnableUIControls()
     {
         controls.UI.Enable();
+    }
+
+    public void EnableMapControls()
+    {
+        controls.Map.Enable();
+    }
+    public void DisableMapControls()
+    {
+        controls.Map.Disable();
+    }
+    public void disableAllControls()
+    {
+        DisableMapControls();
+        DisablePlayerControls();
+        DisableUIControls();
     }
     public void PauseGame()
     {

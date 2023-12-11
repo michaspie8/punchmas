@@ -30,6 +30,7 @@ public class Interactable : MonoBehaviour
     public virtual void Start()
     {
         GameManager.instance.controls.Player.UniversalButton.started += ctx => interactionTrigger = ctx.ReadValueAsButton();
+        GameManager.instance.controls.Map.UniversalButton.started += ctx => interactionTrigger = ctx.ReadValueAsButton();
         if (PlayerController.instance != null)
         {
             objectInteracting = PlayerController.instance.gameObject;
