@@ -8,7 +8,7 @@ public class Enemy : Fighter
 {
     bool AIActionInProgress = false;
     bool attackEnabled = true;
-    
+    bool randomAttack = false;
     
     // Start is called before the first frame update
     void Start()
@@ -25,6 +25,10 @@ public class Enemy : Fighter
     // Update is called once per frame
     void Update()
     {
+        if(randomAttack && attackEnabled && !AIActionInProgress)
+        {
+            StartCoroutine(RandomAttack());
+        }else
         if (AIActionInProgress == false && attackEnabled)
         {
 
@@ -40,6 +44,17 @@ public class Enemy : Fighter
                     break;
             }
         }
+    }
+
+    public IEnumerator RandomAttack()
+    {
+        AIActionInProgress = true;
+        while (AIActionInProgress && attackEnabled && randomAttack)
+        {
+            OnActionButton(Random.Range(1, 4));
+            yield return new WaitForSecondsRealtime(Random.Range(0.3f, 1.5f));
+        }
+        yield break;
     }
 
     public virtual IEnumerator AiAttack1()

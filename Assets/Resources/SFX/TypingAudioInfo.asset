@@ -16,6 +16,6 @@ MonoBehaviour:
   typingSoundClips:
   - {fileID: 8300000, guid: 4e0a5ded21ed2604e9a29f54cc1e9385, type: 3}
   frequencyLevel: 1
-  minPitch: 0.87
-  maxPitch: 1.37
-  stopAudioSource: 0
+  minPitch: 0.72
+  maxPitch: 1.1
+  stopAudioSource: 1

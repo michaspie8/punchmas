@@ -3409,10 +3409,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 349217058580081711, guid: 4f738c03d4c96d547ab8941408bfff08,
+        type: 3}
+      propertyPath: 'universalButtonSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: -1248497892, guid: 9168d3e002b8cea4182153bc725cbafb,
+        type: 3}
+    - target: {fileID: 349217058580081711, guid: 4f738c03d4c96d547ab8941408bfff08,
+        type: 3}
+      propertyPath: 'universalButtonSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 508130600, guid: 4e6ee7829cd3dfa4b947e7dde93b3c85,
+        type: 3}
+    - target: {fileID: 349217058580081711, guid: 4f738c03d4c96d547ab8941408bfff08,
+        type: 3}
+      propertyPath: 'universalButtonSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 508130600, guid: 4e6ee7829cd3dfa4b947e7dde93b3c85,
+        type: 3}
     - target: {fileID: 5898290864031441314, guid: 4f738c03d4c96d547ab8941408bfff08,
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8134089375370212163, guid: 4f738c03d4c96d547ab8941408bfff08,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8775715142513761255, guid: 4f738c03d4c96d547ab8941408bfff08,
         type: 3}

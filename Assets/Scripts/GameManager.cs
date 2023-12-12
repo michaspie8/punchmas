@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
     bool ableToChangeCamera = false;
     public Camera mainCamera;
     public GameObject zoomCam;
-    public PlayableDirector playableDirector;
 
     public GamepadType gamepadType;
 
@@ -59,7 +58,6 @@ public class GameManager : MonoBehaviour
     public string currentScene;
     void Start()
     {
-        playableDirector = GetComponent<PlayableDirector>();
 
         //Handle input device change and set the correct interact image. TODO set all sprites at once, not only interact image
         InputSystem.onDeviceChange += (device, change) =>
@@ -115,11 +113,7 @@ public class GameManager : MonoBehaviour
         });
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+   
 
     public void LoadScene(string name)
     {
@@ -194,6 +188,7 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.StopAllCoroutines();
 
         UpdateAllObjects();
+        UIManager.instance.blackPanel.SetActive(true);
         AudioManager.instance.musicSource.Stop();
         switch (scene.name)
         {
@@ -216,7 +211,7 @@ public class GameManager : MonoBehaviour
                 break;
             case "world-map":
                 disableAllControls();
-                
+
                 currentScene = "world-map";
 
                 foreach (var item in SaveManager.saveData.bossPoints)
@@ -265,7 +260,6 @@ public class GameManager : MonoBehaviour
                     ResumeGame();
                     EnablePlayerControls();
                     DisableUIControls();
-
                 }, false);
                 break;
             default:

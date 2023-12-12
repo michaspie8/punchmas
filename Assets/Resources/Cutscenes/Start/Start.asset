@@ -48,9 +48,9 @@ MonoBehaviour:
   - He stole Santa's secret red emblem, declared by Santa as his most crucial possession,
     despite it was on an old signboard at the factory door.
   - Santa has disappeared, and now the boy has to recover the artifacts
-  timeBetweenFrames: 1.2
-  timeBetweenLetters: 0.2
-  timeBetweenSpriteAndText: 0.8
+  timeBetweenFrames: 1
+  timeBetweenLetters: 0.1
+  timeBetweenSpriteAndText: 0.6
   typingAudioInfo: {fileID: 11400000, guid: 4810d1683a91e314f8201197427ba04d, type: 2}
   musicName: start_cutscene
   musicDelay: 10

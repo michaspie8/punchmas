@@ -72,12 +72,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
-    public void PlayCutscene(PlayableDirector playableDirector)
+    /*public void PlayCutscene(PlayableDirector playableDirector)
     {
         playableDirector.Play();
     }
@@ -85,7 +81,7 @@ public class UIManager : MonoBehaviour
     public void StopCutscene(PlayableDirector playableDirector)
     {
         playableDirector.Stop();
-    }
+    }*/
 
 
     public void ChangeSprites(int i)
@@ -207,7 +203,7 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         if (win)
         {
-            var finalPoints = 0;
+            int finalPoints = 0;
 
 
             //Write about points
@@ -241,8 +237,6 @@ public class UIManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(4f);
         canvasManager.cutsceneWindowUnactiveAll();
-        if (win)
-            SaveManager.saveData.bossPoints[enemy.Name] = 1;
 
         GameManager.instance.LoadMap();
         yield break;
@@ -296,6 +290,13 @@ public class UIManager : MonoBehaviour
     public void DisplayInteractionImage(string text)
     {
         interactObject.GetComponentInChildren<TMP_Text>().text = text;
+        interactObject.GetComponentInChildren<Image>().sprite = buttonSpriteDictionary[ButtonType.universal];
+        interactObject.SetActive(true);
+
+    }  public void DisplayInteractionImage(string text, ButtonType buttonType)
+    {
+        interactObject.GetComponentInChildren<TMP_Text>().text = text;
+        interactObject.GetComponentInChildren<Image>().sprite = buttonSpriteDictionary[buttonType];
         interactObject.SetActive(true);
 
     }
@@ -307,7 +308,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator PlayCutscene(CutsceneSO so, Action callback, bool isSkipable)
     {
-        GameManager.instance.controls.Player.Menu.performed += ctx => { if (isCutscenePlaying && isSkipable) { StopCoroutine(cutsceneCo); callback(); } };
+        GameManager.instance.controls.Player.Menu.performed +=  ctx => { if (isCutscenePlaying && isSkipable) {  StopCoroutine(cutsceneCo); isCutscenePlaying = false; callback(); } };
         AudioManager.instance.PlayMusic(so.musicName, true, so.musicDelay);
         isCutscenePlaying = true;
         yield return this;
@@ -365,6 +366,7 @@ public class UIManager : MonoBehaviour
                 frame--;
             }*/
         }
+        isCutscenePlaying = false;
         callback();
     }
 }

@@ -42,6 +42,10 @@ public class SaveManager : MonoBehaviour
     {
         try
         {
+            if(saveDataStr == "D¿ajco" || saveDataStr == "Jajco")
+            {
+                GameManager.instance.LoadScene("jajco");
+            }
             saveData = JsonUtility.FromJson<SaveData>(saveDataStr);
             GameManager.instance.LoadMap();
             return true;
@@ -77,7 +81,7 @@ public class SaveManager : MonoBehaviour
         }
         try
         {
-            var data = JsonUtility.ToJson(saveData);
+            var data = JsonUtility.ToJson(saveData,false);
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 if (!WebGLFileSaver.IsSavingSupported())
@@ -85,7 +89,7 @@ public class SaveManager : MonoBehaviour
                     Debug.LogWarning("Saving is not supported on this device.");
                     return;
                 }
-                WebGLFileSaver.SaveFile("save.txt", "save.txt");
+                WebGLFileSaver.SaveFile(data, "save.txt");
                 return;
             }
         }

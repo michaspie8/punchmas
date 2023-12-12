@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   pathToSprites:
-  - Cutscenes/Start/Sprites/strat
+  - Cutscenes/Boss/Sprites/boss
   textForFrame:
   - The boy, armed with these reclaimed artifacts, courageously approached Santa's
     palace.

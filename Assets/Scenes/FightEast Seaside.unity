@@ -12925,9 +12925,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b868233ca21214d9bddd6fc4199311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health_slider: {fileID: 0}
+  health_slider: {fileID: 304079934}
   fighter: {fileID: 0}
-  nameText: {fileID: 0}
+  nameText: {fileID: 983425249}
 --- !u!114 &1977925527
 MonoBehaviour:
   m_ObjectHideFlags: 0

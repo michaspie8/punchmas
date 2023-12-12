@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FightBig City.unity
     guid: b38416b23139e6b4aa7c5c5448cadc43
+  - enabled: 1
+    path: Assets/Scenes/Boss.unity
+    guid: 7335bdd29d21b8a4ea98a76c97295bad
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f08ce73eda9c6824ebfb9eecc80553e8,
       type: 2}

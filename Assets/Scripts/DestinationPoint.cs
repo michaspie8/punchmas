@@ -75,7 +75,7 @@ public class DestinationPoint : Interactable
     public void LoadInfo()
     {
         var bossName = this.bossName;
-        if(SaveManager.saveData.bossPoints.ContainsKey(bossName) == false)
+        if (SaveManager.saveData.bossPoints.ContainsKey(bossName) == false && !string.IsNullOrEmpty(altBossName) && SaveManager.saveData.bossPoints.ContainsKey(altBossName))
         {
             bossName = altBossName;
         }
@@ -84,7 +84,7 @@ public class DestinationPoint : Interactable
             
             if (obj.gameObject.name == "BossName")
             {
-                obj.text = bossName;
+                obj.text = this.bossName;
             }
             if (obj.gameObject.name == "points")
             {
