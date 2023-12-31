@@ -30,7 +30,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -86,6 +86,8 @@ ModelImporter:
   - 63ca365389530224e84f0f7de0e0d3cc
   - efad15fbb7af92d4386d5e1902c54e09
   - a22dd41d10afc8d48b844411e35da6a7
+  - e6c49c36099ad0e429625610b1a74ff9
+  - 4f41b2eca7e4307458109d8171de1f12
   importAnimation: 1
   humanDescription:
     serializedVersion: 3

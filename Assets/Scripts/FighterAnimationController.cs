@@ -5,8 +5,9 @@ using System.Threading;
 
 public class FighterAnimationController : MonoBehaviour
 {
-
+    [HideInInspector]
     public Animator anim;
+    [HideInInspector]
     public Fighter fighter;
     public delegate void Dodge(bool isGuarding);
     public Dodge dodge;

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -10,6 +10,8 @@ using System.Diagnostics.Tracing;
 using UnityEngine.Timeline;
 using TMPro;
 using System;
+using JetBrains.Annotations;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
@@ -41,8 +43,6 @@ public class UIManager : MonoBehaviour
     [Header("Cutscenes")]
     public CanvasUIManager canvasManager;
 
-    public SignalReceiver signalReceiver;
-
     public GameObject blackPanel;
     public Fader blackPanelFader;
 
@@ -72,16 +72,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
-    /*public void PlayCutscene(PlayableDirector playableDirector)
-    {
-        playableDirector.Play();
-    }
-
-    public void StopCutscene(PlayableDirector playableDirector)
-    {
-        playableDirector.Stop();
-    }*/
 
 
     public void ChangeSprites(int i)
@@ -120,7 +110,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator TypeWriter(string text, float waitTime, GameObject tmp)
     {
-        
+
         for (var i = 0; i < text.Length; i++)
         {
             try
@@ -183,6 +173,7 @@ public class UIManager : MonoBehaviour
         yield return new WaitUntil(() => faded);
 
         canvasManager.cutsceneWindow.SetActive(true);
+        canvasManager.cutsceneWindow.GetComponent<Image>().enabled = false;
         var obj = canvasManager.cutsceneWindow.GetComponentsInChildren<TextMeshProUGUI>(true).ToList().Find(x => x.gameObject.name == "Cutscene-fight-end");
         obj.text = "";
         obj.gameObject.SetActive(true);
@@ -232,11 +223,23 @@ public class UIManager : MonoBehaviour
 
 
             yield return new WaitUntil(() => end);
+            if (enemy.Name == "Дед Мороз Ротшильд")
+            {
+                SaveManager.saveData.finalBossDefeated = true;
+
+                canvasManager.cutsceneWindowUnactiveAll();
+                canvasManager.cutsceneWindow.SetActive(false);
+                canvasManager.cutsceneWindow.GetComponent<Image>().enabled = true;
+                GameManager.instance.LoadScene("Credits");
+                yield break;
+            }
         }
 
 
         yield return new WaitForSecondsRealtime(4f);
         canvasManager.cutsceneWindowUnactiveAll();
+        canvasManager.cutsceneWindow.SetActive(false);
+        canvasManager.cutsceneWindow.GetComponent<Image>().enabled = true;
 
         GameManager.instance.LoadMap();
         yield break;
@@ -245,14 +248,12 @@ public class UIManager : MonoBehaviour
     public IEnumerator FightStartCutsceneCo(string enemyName = "")
     {
         var obj = canvasManager.cutsceneWindow.GetComponentsInChildren<TextMeshProUGUI>(true).ToList().Find(x => x.gameObject.name == "Cutscene-fight-start");
-
+        canvasManager.cutsceneWindow.GetComponent<Image>().enabled = false;
         GameManager.instance.PauseGame();
         GameManager.instance.DisablePlayerControls();
         GameManager.instance.DisableUIControls();
         canvasManager.loadingImage.SetActive(false);
         canvasManager.cutsceneWindowUnactiveAll();
-
-
         canvasManager.cutsceneWindow.SetActive(true);
 
 
@@ -274,6 +275,7 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         obj.text = "FIGHT!";
         yield return new WaitForSecondsRealtime(1f);
+        AudioManager.instance.typingAudioSource.Stop();
         AudioManager.instance.PlayMusic(enemyName, true);
 
         blackPanelFader.FadeOut();
@@ -281,6 +283,7 @@ public class UIManager : MonoBehaviour
 
         canvasManager.cutsceneWindowUnactiveAll();
         canvasManager.cutsceneWindow.SetActive(false);
+        canvasManager.cutsceneWindow.GetComponent<Image>().enabled = true;
         GameManager.instance.EnablePlayerControls();
         GameManager.instance.ResumeGame();
         yield break;
@@ -293,7 +296,8 @@ public class UIManager : MonoBehaviour
         interactObject.GetComponentInChildren<Image>().sprite = buttonSpriteDictionary[ButtonType.universal];
         interactObject.SetActive(true);
 
-    }  public void DisplayInteractionImage(string text, ButtonType buttonType)
+    }
+    public void DisplayInteractionImage(string text, ButtonType buttonType)
     {
         interactObject.GetComponentInChildren<TMP_Text>().text = text;
         interactObject.GetComponentInChildren<Image>().sprite = buttonSpriteDictionary[buttonType];
@@ -306,12 +310,97 @@ public class UIManager : MonoBehaviour
         interactObject.SetActive(false);
     }
 
-    public IEnumerator PlayCutscene(CutsceneSO so, Action callback, bool isSkipable)
+    public IEnumerator CreditsCutscene()
     {
-        GameManager.instance.controls.Player.Menu.performed +=  ctx => { if (isCutscenePlaying && isSkipable) {  StopCoroutine(cutsceneCo); isCutscenePlaying = false; callback(); } };
-        AudioManager.instance.PlayMusic(so.musicName, true, so.musicDelay);
+        var end = false;
+        GameManager.instance.PlayCutscene(cutsceneDictionary["before-credits"], () => { end = true; }, false);
+        yield return new WaitUntil(() => end);
+        end = false;
+
+
+        int maxTextureWidth = 7680;
+        GameObject textureObj = GameObject.Find("WalkingRenderTexture");
+
+        float resizeVel = 0f;
+
+        float moveTime = 10f;
+        Vector3 moveVel = Vector3.zero;
+        Vector3 startPos = PlayerController.instance.transform.position;
+        Vector3 endPos = new Vector3(90, PlayerController.instance.transform.position.y, PlayerController.instance.transform.position.z);
+
+        Time.timeScale = 1f;
+
+        AudioManager.instance.PlayMusic("Credits", false);
+
+        yield return new WaitForSecondsRealtime(1f);
+        PlayerController.instance.anim.SetTrigger("endWalk");
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        blackPanelFader.FadeOut();
+
+        var rectt = textureObj.GetComponent<RectTransform>();
+        //Move player to endPos until player is near the endpos
+        while (Vector3.Distance(PlayerController.instance.transform.position, endPos) > 3)
+        {
+            var x = Vector3.SmoothDamp(PlayerController.instance.transform.position, endPos, ref moveVel, moveTime);
+            PlayerController.instance.transform.position = x;
+
+            rectt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.SmoothDamp(rectt.rect.width, maxTextureWidth, ref resizeVel, moveTime*0.6f));
+            yield return new WaitForEndOfFrame();
+        }
+
+        //then, fade in and display credits cutscene.
+        blackPanelFader.FadeOut();
+        Time.timeScale = 0f;
+
+        GameManager.instance.PlayCutscene(cutsceneDictionary["Credits"], () => { end = true; }, false, true);
+        yield return new WaitUntil(() => end);
+        GameManager.instance.LoadScene("MainMenu");
+        yield break;
+
+
+    }
+
+    public IEnumerator PlayCutscene(CutsceneSO so, Action callback, bool isSkipable, bool fastAnimation = false)
+    {
+        IEnumerator fastAnim(Sprite[] sprites, float timeBetweenFrames, Image image)
+        {
+            int i = 0;
+            while (true)
+            {
+                image.sprite = sprites[i];
+
+                i++;
+                if (i >= sprites.Length)
+                    i = 0;
+                yield return new WaitForSecondsRealtime(timeBetweenFrames);
+
+            }
+        }
+        if (isSkipable)
+        {
+            Action<UnityEngine.InputSystem.InputAction.CallbackContext> xd = null;
+            xd = ctx => { if (isCutscenePlaying && isSkipable) { StopCoroutine(cutsceneCo); isCutscenePlaying = false; callback(); GameManager.instance.controls.Player.Menu.performed -= xd; } };
+
+            GameManager.instance.controls.Player.Menu.performed += xd;
+        }
+
+        AudioManager.instance.typingAudioSource.Stop();
+        if (!string.IsNullOrEmpty(so.musicName))
+        {
+            //DNS stands for do not stop, so the music wont stop
+            if (so.musicName != "dns")
+            {
+                AudioManager.instance.musicSource.Stop();
+                AudioManager.instance.PlayMusic(so.musicName, true, so.musicDelay);
+            }
+        }
+        else
+        {
+            AudioManager.instance.musicSource.Stop();
+        }
         isCutscenePlaying = true;
-        yield return this;
+
         var blanksprite = Resources.Load<Sprite>("Sprites/blank");
         var sprites = new List<Sprite>();
         foreach (var path in so.pathToSprites)
@@ -339,34 +428,62 @@ public class UIManager : MonoBehaviour
         cutsceneImage.sprite = blanksprite;
         cutsceneWindow.SetActive(true);
 
-        for (int frame = 0; frame < sprites.Count; frame++)
+        if (fastAnimation)
         {
-            yield return new WaitForSecondsRealtime(so.timeBetweenFrames);
-            cutsceneImage.sprite = sprites[frame];
-
-            //if there is text for this frame, display it
-            if (!string.IsNullOrEmpty(so.textForFrame[frame]))
+            StartCoroutine(fastAnim(sprites.ToArray(), so.timeBetweenFrames, cutsceneImage));
+            for (int frame = 0; frame < so.textForFrame.Length; frame++)
             {
-                var text = so.textForFrame[frame];
-                yield return new WaitForSecondsRealtime(so.timeBetweenSpriteAndText);
-                taskCompleted = false;
-                var obj = blackPanel.GetComponentsInChildren<TextMeshProUGUI>(true).ToList().Find(x => x.gameObject.name == "Cutscene-text");
-                obj.text = "";
-                obj.gameObject.SetActive(true);
-                typeWriterEnd += (GameObject ob) => { taskCompleted = true; };
-                StartCoroutine(TypeWriter(text, so.timeBetweenLetters, obj.gameObject, so.typingAudioInfo, false));
-                yield return new WaitUntil(() => taskCompleted);
-                taskCompleted = false;
-                obj.gameObject.SetActive(false);
+                if (!string.IsNullOrEmpty(so.textForFrame[frame]))
+                {
+                    var text = so.textForFrame[frame];
+                    yield return new WaitForSecondsRealtime(so.timeBetweenSpriteAndText);
+                    taskCompleted = false;
+                    var obj = blackPanel.GetComponentsInChildren<TextMeshProUGUI>(true).ToList().Find(x => x.gameObject.name == "Cutscene-text");
+                    obj.text = "";
+                    obj.gameObject.SetActive(true);
+                    typeWriterEnd += (GameObject ob) => { taskCompleted = true; };
+                    StartCoroutine(TypeWriter(text, so.timeBetweenLetters, obj.gameObject, so.typingAudioInfo, false));
+                    yield return new WaitUntil(() => taskCompleted);
+                    taskCompleted = false;
+                    yield return new WaitForSecondsRealtime(so.timeBetweenSpriteAndText);
+                    obj.gameObject.SetActive(false);
+                }
             }
-            /*//if duration is 2, then there will be 2 frames with the same sprite
-            if(duration < so.frameDurations[frame])
+
+        }
+        else
+        {
+            for (int frame = 0; frame < sprites.Count; frame++)
             {
-                duration++;
-                frame--;
-            }*/
+                yield return new WaitForSecondsRealtime(so.timeBetweenFrames);
+                cutsceneImage.sprite = sprites[frame];
+
+                //if there is text for this frame, display it
+                if (!string.IsNullOrEmpty(so.textForFrame[frame]))
+                {
+                    var text = so.textForFrame[frame];
+                    yield return new WaitForSecondsRealtime(so.timeBetweenSpriteAndText);
+                    taskCompleted = false;
+                    var obj = blackPanel.GetComponentsInChildren<TextMeshProUGUI>(true).ToList().Find(x => x.gameObject.name == "Cutscene-text");
+                    obj.text = "";
+                    obj.gameObject.SetActive(true);
+                    typeWriterEnd += (GameObject ob) => { taskCompleted = true; };
+                    StartCoroutine(TypeWriter(text, so.timeBetweenLetters, obj.gameObject, so.typingAudioInfo, false));
+                    yield return new WaitUntil(() => taskCompleted);
+                    taskCompleted = false;
+                    yield return new WaitForSecondsRealtime(so.timeBetweenSpriteAndText);
+                    obj.gameObject.SetActive(false);
+                }
+                /*//if duration is 2, then there will be 2 frames with the same sprite
+                if(duration < so.frameDurations[frame])
+                {
+                    duration++;
+                    frame--;
+                }*/
+            }
         }
         isCutscenePlaying = false;
+        cutsceneWindow.SetActive(false);
         callback();
     }
 }

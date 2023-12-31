@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
         });
     }
 
-   
+
 
     public void LoadScene(string name)
     {
@@ -241,26 +241,31 @@ public class GameManager : MonoBehaviour
                             break;
                     }
                 }
-
+                
                 UIManager.instance.blackPanelFader.FadeOut();
                 var p = FindFirstObjectByType<MapPlayerController>();
                 p.transform.position = FindObjectsByType<DestinationPoint>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList().Find(ctx => ctx.destinationName == SaveManager.saveData.destinationPointName).transform.position;
                 EnableMapControls();
                 EnableUIControls();
                 ResumeGame();
+                AudioManager.instance.PlayMusic("MenuMusic", true, 2f);
                 break;
-            case "boss":
-                currentScene = "boss";
+            case "Boss":
+                currentScene = "Boss";
 
                 PauseGame();
                 DisablePlayerControls();
                 DisableUIControls();
-                UIManager.instance.PlayCutscene(UIManager.instance.cutsceneDictionary["boss"], () =>
+                UIManager.instance.StartCoroutine(UIManager.instance.PlayCutscene(UIManager.instance.cutsceneDictionary["Boss"], () =>
                 {
-                    ResumeGame();
-                    EnablePlayerControls();
-                    DisableUIControls();
-                }, false);
+                    UIManager.instance.canvasManager.cutsceneWindow.SetActive(false);
+                    UIManager.instance.StartCoroutine(UIManager.instance.FightStartCutsceneCo("Дед Мороз Ротшильд"));
+                }, false));
+
+                break;
+            case "Credits":
+                currentScene = "Credits";
+                UIManager.instance.StartCoroutine(UIManager.instance.CreditsCutscene());
                 break;
             default:
                 break;
@@ -280,7 +285,6 @@ public class GameManager : MonoBehaviour
         //UIManager:
         UIManager.instance.mainCanvas = mainCanvas;
         UIManager.instance.canvasManager = mainCanvas.GetComponent<CanvasUIManager>();
-        UIManager.instance.signalReceiver = UIManager.instance.canvasManager.GetComponent<SignalReceiver>();
 
         UIManager.instance.blackPanel = UIManager.instance.canvasManager.blackPanel;
         UIManager.instance.blackPanelFader = UIManager.instance.blackPanel.GetComponent<Fader>();
@@ -290,9 +294,13 @@ public class GameManager : MonoBehaviour
 
         SaveManager.instance.saveInput = UIManager.instance.canvasManager.saveInput;
     }
-    public void PlayCutscene(CutsceneSO so, Action callback, bool isSkippable)
+    public Coroutine PlayCutscene(CutsceneSO so, Action callback, bool isSkippable)
     {
-        UIManager.instance.cutsceneCo = StartCoroutine(UIManager.instance.PlayCutscene(so, callback, isSkippable));
+        return UIManager.instance.cutsceneCo = StartCoroutine(UIManager.instance.PlayCutscene(so, callback, isSkippable));
+    }
+    public Coroutine PlayCutscene(CutsceneSO so, Action callback, bool isSkippable, bool fastAnimation)
+    {
+        return UIManager.instance.cutsceneCo = StartCoroutine(UIManager.instance.PlayCutscene(so, callback, isSkippable, fastAnimation));
     }
 
     private void OnEnable()

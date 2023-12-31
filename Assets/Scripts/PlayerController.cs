@@ -1,13 +1,16 @@
+using Cinemachine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : Fighter
 {
     public static PlayerController instance;
+    public GameObject wireframeParent;
+    public Transform cameraLookAtTransform;
+
+
     private void Awake()
     {
 
@@ -17,6 +20,11 @@ public class PlayerController : Fighter
             return;
         }
         instance = this;
+        foreach (var obj in wireframeParent.GetComponentsInChildren<Transform>())
+        {
+            var r = obj.GetComponent<WireframeRenderer>();
+            if (r != null) r.LineColor = Color.red;
+        }
     }
 
     // Start is called before the first frame update
@@ -26,7 +34,7 @@ public class PlayerController : Fighter
         anim = GetComponent<Animator>();
         animController = GetComponent<PlayerAnimationController>();
         //find the enemy script and subscribe to the onHit event
-        
+
 
         var enemy = GameObject.FindGameObjectsWithTag("Enemy").FirstOrDefault();
         if (enemy != null)
@@ -35,13 +43,25 @@ public class PlayerController : Fighter
             if (enemyScript != null)
             {
                 onHit += enemyScript.HitResponse;
-                if(animController != null)
-                animController.dodge += enemyScript.DodgeResponse;
-                    
+                if (animController != null)
+                    animController.dodge += enemyScript.DodgeResponse;
+
             }
         }
 
-        
+
+        if (cameraLookAtTransform != null)
+        {
+            var a = FindObjectsByType<CinemachineVirtualCamera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            foreach (var cam in a)
+            {
+                if (cam.LookAt == null)
+                    cam.LookAt = cameraLookAtTransform;
+                if (cam.Follow == null)
+                    cam.Follow = transform;
+            }
+        }
+
     }
 
     // Update is called once per frame

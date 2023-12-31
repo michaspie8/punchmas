@@ -10,7 +10,7 @@ public class StartupMenu : MonoBehaviour
     public GameObject MainMenu;
     public GameObject AuthorsMenu;
     private GameObject[] Menus;
-    
+
     private void Start()
     {
         Menus = new GameObject[] { MainMenu, UIManager.instance.OptionsMenu, AuthorsMenu };
@@ -35,13 +35,15 @@ public class StartupMenu : MonoBehaviour
     {
         GameManager.instance.EnableUIControls();
         GameManager.instance.DisableUIControls();
-        if(SaveManager.saveData.isGameStarted)
+        if (SaveManager.saveData.isGameStarted)
         {
             GameManager.instance.LoadMap();
             return;
-        }else
-        GameManager.instance.PlayCutscene(UIManager.instance.cutsceneDictionary["Start"], () => SaveManager.instance.NewGame(), true);
-        
+        }
+        else
+        {
+            GameManager.instance.PlayCutscene(UIManager.instance.cutsceneDictionary["Start"], () => { if (UIManager.instance.cutsceneCo != null) SaveManager.instance.NewGame(); }, true);
+        }
 
     }
     public void LoadGame()

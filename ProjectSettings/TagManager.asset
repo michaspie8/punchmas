@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - MainCanvas
   - ZoomCam
+  - Wireframe renderer
   layers:
   - Default
   - TransparentFX

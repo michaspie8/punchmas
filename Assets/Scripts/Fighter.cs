@@ -69,7 +69,7 @@ public abstract class Fighter : Entity
                     if (damageMultiplers.ContainsKey(typeOfAttack))
                     {
                         DecreaseHealth(damage * damageMultiplers[typeOfAttack]);
-                        points += (int)(damage * (damageMultiplers[typeOfAttack] * damageMultiplers[typeOfAttack]) * 10);
+                        points += (int)(damageMultiplers[typeOfAttack] * damageMultiplers[typeOfAttack] * 10 / damage);
                     }
                     else
                     {

@@ -19,7 +19,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"D:/Unity Projects/zsti-christmas/build/0.21;D:/Unity Projects/zsti-christmas/Punchmas/WebGL Builds/0.2;D:/Unity Projects/zsti-christmas/Punchmas/WebGL Builds;;;;;;;\"}"
+                "value": "{\"m_Value\":\"D:/Unity Projects/zsti-christmas/build/0.2.3;D:/Unity Projects/zsti-christmas/build/0.2.2;D:/Unity Projects/zsti-christmas/build/0.2.1;D:/Unity Projects/zsti-christmas/build/0.2.0;D:/Unity Projects/zsti-christmas/build/0.1.3;D:/Unity Projects/zsti-christmas/build/0.1.2;D:/Unity Projects/zsti-christmas/build/0.1.1;D:/Unity Projects/zsti-christmas/build/0.21;D:/Unity Projects/zsti-christmas/Punchmas/WebGL Builds/0.2;D:/Unity Projects/zsti-christmas/Punchmas/WebGL Builds\"}"
             }
         ]
     }

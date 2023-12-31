@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73e8edb4bcb5a6459adc991e654adc2, type: 3}
+  m_Name: Credits
+  m_EditorClassIdentifier: 
+  pathToSprites:
+  - Cutscenes/Credits/Sprites/end
+  textForFrame:
+  - And boy walked home...
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - CREDITS
+  - "Programming: Micha\u0142 Pietruszewski"
+  - "Music: Micha\u0142 Pietruszewski (with help of Bartosz Bartocha)"
+  - "Graphics: Micha\u0142 Pietruszewski"
+  - "3D modeling: Micha\u0142 Pietruszewski"
+  - 'Special thanks to:'
+  - Bartosz Bartocha
+  - "Karolina Smolarek \u2665 "
+  - ' '
+  - Thanks For Playing!
+  - ' '
+  - 'Song: "Song for Demise":'
+  - "Released by BCM Records\u2122 (Germany), BC 12-2007-40"
+  - "Piano Fantasia - Song For Denise (Audiophile Dance Mix) Vinyl rip by Veso\u2122
+    By Veso\u2122 is licensed under a  Creative Commons Licenses:"
+  - CC BY-NC-SA 3.0 DEED, link https://creativecommons.org/licenses/by-nc-sa/3.0/
+    No changes were made.
+  - ' '
+  - "Smacznego d\u017Cajca i mokrego dynusa"
+  - Mery Hrisztmas
+  - ' '
+  - 
+  - THE END...???
+  timeBetweenFrames: 0.1
+  timeBetweenLetters: 0.2
+  timeBetweenSpriteAndText: 1
+  typingAudioInfo: {fileID: 11400000, guid: 4810d1683a91e314f8201197427ba04d, type: 2}
+  musicName: dns
+  musicDelay: 0

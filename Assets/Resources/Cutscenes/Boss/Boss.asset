@@ -22,11 +22,11 @@ MonoBehaviour:
   - The artifacts weren't stolen. And boy's name will not appear on the nice's list.
   - Santa used the artifacts to transform into his final, most powerfull form. And
     only person that can stop him now is him.
-  - '"It''s time to settle accounts, you bastard.\nIT IS PUNCHMAS TIME"\n- said the
-    boy...'
-  timeBetweenFrames: 0.5
-  timeBetweenLetters: 0.08
+  - '"It''s time to settle accounts, you bastard.    IT IS PUNCHMAS TIME"               
+    - said the boy...'
+  timeBetweenFrames: 1
+  timeBetweenLetters: 0.1
   timeBetweenSpriteAndText: 0.2
-  typingAudioInfo: {fileID: 11400000, guid: 4810d1683a91e314f8201197427ba04d, type: 2}
-  musicName: boss _appear
+  typingAudioInfo: {fileID: 11400000, guid: 87ad34f29cdb71f4aa2417fe9f949c44, type: 2}
+  musicName: boss_appear
   musicDelay: 10
