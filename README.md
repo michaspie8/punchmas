@@ -3,7 +3,6 @@
 ## Co to?
 Punchmass to gra typu bijatyka, fabularna o tematyce świątecznej. Język angielski.
 Powstała na potrzeby konkursu w szkole ZSTI Gliwice.
-Jej jedynym twórcą jest Michał Pietruszewski, i zastrzega on sobie pełne prawo do całego kodu który napisał, i zabrania jakiegokolwiek wykorzystywania kodu przez niego napisanego w jakichkolwiek innych projektach, lub oprogramowaniu.
 
 
 ## Jak grać
